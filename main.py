@@ -1,13 +1,22 @@
 from tkinter import *
+from tkinter import messagebox
+
 FONT_NAME = "Courier"
 
 
 # ---------------------------- PASSWORD GENERATOR ------------------------------- #
 def save_passwd():
-    with open("passwd.txt", mode="a") as data:
-        data.write(f"{entry_web.get()} | {entry_login.get()} | {entry_passwd.get()}\n")
-        entry_web.delete(0, END)
-        entry_passwd.delete(0, END)
+    if len(entry_web.get()) == 0 or len(entry_login.get()) == 0 or len(entry_passwd.get()) == 0:
+        messagebox.showinfo(title="Ooops", message="Please make sure you haven't left any fields empty.")
+    else:
+        is_ok = messagebox.askokcancel(title=entry_web.get(),
+                                       message=f"These are the details entered: \nEmail: {entry_login.get()}"
+                                               f"\nPassword: {entry_passwd.get()} \nIs it ok to save?")
+        if is_ok:
+            with open("passwd.txt", mode="a") as data:
+                data.write(f"{entry_web.get()} | {entry_login.get()} | {entry_passwd.get()}\n")
+                entry_web.delete(0, END)
+                entry_passwd.delete(0, END)
 
 
 window = Tk()
