@@ -55,11 +55,12 @@ def save_passwd():
     website = entry_web.get()
     login = entry_login.get()
     password = entry_passwd.get()
-    new_data = {website:
-                    {"login": login,
-                     "password": password
-                     }
-                }
+    new_data = {
+        website: {
+                "login": login,
+                "password": password
+            }
+    }
 
     if len(website) == 0 or len(login) == 0 or len(password) == 0:
         messagebox.showinfo(title="Ooops", message="Please make sure you haven't left any fields empty.")
