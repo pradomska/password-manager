@@ -1,0 +1,6 @@
+fb | example@email.com | asdf
+tt | example@email.com | dfre
+amazon | example@email.com | jolka
+ws | example@email.com | sd
+tinder | example@email.com | mona1
+insta | example@email.com | F0&VsO6m4Id9*InS#

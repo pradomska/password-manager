@@ -2,6 +2,7 @@ from tkinter import *
 from tkinter import messagebox
 import random
 import pyperclip
+import json
 
 FONT_NAME = "Courier"
 
@@ -31,17 +32,28 @@ def generate_passwd():
 
 
 def save_passwd():
-    if len(entry_web.get()) == 0 or len(entry_login.get()) == 0 or len(entry_passwd.get()) == 0:
+
+    website = entry_web.get()
+    login = entry_login.get()
+    password = entry_passwd.get()
+    new_data = {website:
+                    {"login": login,
+                     "password": password
+                     }
+                }
+
+    if len(website) == 0 or len(login) == 0 or len(password) == 0:
         messagebox.showinfo(title="Ooops", message="Please make sure you haven't left any fields empty.")
     else:
-        is_ok = messagebox.askokcancel(title=entry_web.get(),
-                                       message=f"These are the details entered: \nEmail: {entry_login.get()}"
-                                               f"\nPassword: {entry_passwd.get()} \nIs it ok to save?")
-        if is_ok:
-            with open("passwd.txt", mode="a") as data:
-                data.write(f"{entry_web.get()} | {entry_login.get()} | {entry_passwd.get()}\n")
-                entry_web.delete(0, END)
-                entry_passwd.delete(0, END)
+        with open("passwd.json", mode="r") as data_file:
+            data = json.load(data_file)
+            data.update(new_data)
+
+        with open("passwd.json", mode="w") as data_file:
+            json.dump(data, data_file, indent=4)
+            
+            entry_web.delete(0, END)
+            entry_passwd.delete(0, END)
 
 
 window = Tk()
